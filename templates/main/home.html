@@ -4,6 +4,15 @@
     div.userinfo {
         text-align: right;
     }
+    div.upperbar{
+        border-radius: 25px;
+        background-color: navy;
+    }
+    .alignright {
+	    float: right;
+        margin-right: 5%;
+        margin-top: 5px;
+    }
     </style>
     {% if user.is_authenticated %}
         <div class="userinfo">
@@ -11,7 +20,34 @@
         </div>
         <br>
         <div class="upperbar">
-            {{ user.airline.name }}
+            <img src="{% load static %} url('{% static "main/media/airlinelogo.png" %}');" alt="   ">
+            <b>{{ user.airline.name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="fleet">Fleet</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="hubs">Hubs</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="flights">Flights</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <label class="alignright">${{ user.airline.budget }}</label>
         </div>
+        <br><br>
+        {% block content2 %}
+            {% if user.airline.hub_set.all.count == 0 %}
+                <center>
+                    <label>Seem your airline doesn't have any hub yet</label>
+                    <br>
+                    <a href="hubs">choose one here</a>
+                </center>
+            {% elif user.airline.plane_set.all.count == 0 %}
+                <center>
+                    <label>Seem your airline doesn't have any aircraft yet</label>
+                    <br>
+                    <a href="aircraftmarket">buy one here</a>
+                </center>
+            {% elif user.airline.flight_set.all.count == 0 %}
+                <center>
+                    <label>Seem your airline doesn't have any flights yet</label>
+                    <br>
+                    <a href="flights">create one here</a>
+                </center>
+            {% endif %}
+        {% endblock %}
     {% endif %}
 {% endblock %}
