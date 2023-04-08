@@ -14,7 +14,7 @@ def signup(request):
         form_user = CreateUserForm(request.POST)
         form_airline = CreateAirlineForm(request.POST)
         if form_user.is_valid() and form_airline.is_valid():
-            user = form_user.save(False)
+            user = form_user.save(commit=False)
             user.is_active = False
             user.save()
             verify_email(request, user, form_user.cleaned_data.get('email'))

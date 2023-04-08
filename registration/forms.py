@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from main.models import Airline
+from registration.models import Airline
 
 class CreateUserForm(UserCreationForm):
     email = forms.EmailField()
@@ -10,7 +10,6 @@ class CreateUserForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 class CreateAirlineForm(forms.ModelForm):
-
     class Meta:
         model = Airline
         fields = ["name"]

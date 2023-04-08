@@ -1,7 +1,19 @@
 {% extends 'registration/base.html' %}
 
 {% block content %}
-    <center>
+    {% if user.is_authenticated %}
+        <center>
+        <br><br>
+        <h1>Airline Manager</h1>
+        <br>
+        <b>You are logged as {{ user.username }}</b>
+        <br><br>
+        <a href="/main" class="btn btn-success">enter your home page</a>
+        <br><br>
+        <a href="/logout" class="btn btn-primary">Logout</a>
+        <br><br><br><br><br><br>
+    {% else %}
+        <center>
         <br><br>
         <h1>Airline Manager</h1>
         <br>
@@ -15,4 +27,5 @@
         <a href="/password_reset">Forgot password?</a>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </center>
+    {% endif %}
 {% endblock %}

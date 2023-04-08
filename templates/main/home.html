@@ -1,8 +1,17 @@
 {% extends 'registration/base.html' %}
-
 {% block content %}
+    <style>
+    div.userinfo {
+        text-align: right;
+    }
+    </style>
     {% if user.is_authenticated %}
-        {{ user.username }}
-        <a href="/logout">Logout</a>
+        <div class="userinfo">
+               You are logged as {{ user.username }}  <a href="/" class="btn btn-dark btn-sm">edit account</a> <a href="/logout" class="btn btn-dark btn-sm">Logout</a>
+        </div>
+        <br>
+        <div class="upperbar">
+            {{ user.airline.name }}
+        </div>
     {% endif %}
 {% endblock %}
