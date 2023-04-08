@@ -9,9 +9,10 @@
         <h1>CREATE ACCOUNT</h1>
         <form method="POST" class="form-group">
             {% csrf_token %}
-            {{ formuser|crispy }}
             {{ formairline|crispy }}
+            {{ formuser|crispy }}
         <button type="submit" class="btn btn-success">Sign up</button>
         </form>
+        <br><br><br>
     </center>
 {% endblock %}
