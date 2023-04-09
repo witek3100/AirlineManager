@@ -15,10 +15,13 @@ class Airport(models.Model):
     longtitude = models.IntegerField()
     latitude = models.IntegerField()
 
+    def __repr__(self):
+        return f'{self.city} {self.code} {self.popularity}'
+
 class Hub(models.Model):
     hub_id = models.AutoField(primary_key=True)
     airline_id = models.ForeignKey('registration.Airline', on_delete=models.CASCADE)
-    airport_id = models.ForeignKey(Airport, on_delete=models.CASCADE)
+    airport_id = models.ForeignKey(Airport, verbose_name="airport", on_delete=models.CASCADE)
 
 class Flight(models.Model):
     flight_id = models.AutoField(primary_key=True)

@@ -13,6 +13,10 @@
         margin-right: 5%;
         margin-top: 5px;
     }
+    th {
+        background-color: navy;
+        color: white;
+    }
     </style>
     {% if user.is_authenticated %}
         <div class="userinfo">
@@ -20,16 +24,22 @@
         </div>
         <br>
         <div class="upperbar">
-            <img src="{% load static %} url('{% static "registration/media/airlinelogo.png" %}');" alt="   ">
+        <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+{#            <img src="{% load static %} url('{% static "registration/media/airlinelogo.png" %}');" alt="">#}
             <b>{{ user.airline.name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="/main">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="fleet">Fleet</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="hubs">Hubs</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="flights">Flights</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <label class="alignright">${{ user.airline.budget }}</label>
+            <br><br>
         </div>
         <br>
         {% block content2 %}
+            <center>
+            <h1>Home</h1>
+            </center>
             {% if user.airline.hub_set.all.count == 0 %}
                 <br>
                 <center>

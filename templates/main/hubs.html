@@ -1,8 +1,39 @@
 {% extends 'main/home.html' %}
+{% load main_tags %}
 
 {% block content2 %}
+    {% load static %}
     <center>
-        <h1>{{ user.airline.name }} hubs</h1>
-
+        <h1>Hubs</h1>
+        {% if user.airline.hub_set.all.count == 0 %}
+            <center>
+                <b>You don't have any hubs yet</b><br><br>
+                <a href="create_hub" class="btn btn-primary">Select first hub</a><br><br>
+            </center>
+        {% else %}
+            <center>
+                <ul>
+                    <table class="table table-hover table-bordered">
+                      <thead>
+                        <tr>
+                            <label><th scope="col">city</th>
+                            <th scope="col">ICAO code</th></label>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for hub in user.airline.hub_set.all %}
+                          <tr>
+                              <td><label>{{ hub.airport_id.city }}</label></td>
+                              <td><label>{{ hub.airport_id.code }}</label></td>
+                          </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                    <br><br>
+                </ul>
+                <a href="create_hub" class="btn btn-primary">Select new hub ${{ user.airline.hub_set.count|mul:500000 }}</a><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br>
+            </center>
+        {% endif %}
     </center>
 {% endblock %}
