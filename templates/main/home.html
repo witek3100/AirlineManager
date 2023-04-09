@@ -20,16 +20,18 @@
         </div>
         <br>
         <div class="upperbar">
-            <img src="{% load static %} url('{% static "main/media/airlinelogo.png" %}');" alt="   ">
+            <img src="{% load static %} url('{% static "registration/media/airlinelogo.png" %}');" alt="   ">
             <b>{{ user.airline.name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/main">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="fleet">Fleet</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="hubs">Hubs</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="flights">Flights</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <label class="alignright">${{ user.airline.budget }}</label>
         </div>
-        <br><br>
+        <br>
         {% block content2 %}
             {% if user.airline.hub_set.all.count == 0 %}
+                <br>
                 <center>
                     <label>Seem your airline doesn't have any hub yet</label>
                     <br>
