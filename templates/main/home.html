@@ -29,9 +29,9 @@
 {#            <img src="{% load static %} url('{% static "registration/media/airlinelogo.png" %}');" alt="">#}
             <b>{{ user.airline.name }}</b>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="/main">Home</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="fleet">Fleet</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="hubs">Hubs</a>&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="flights">Flights</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/main/fleet">Fleet</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/main/hubs">Hubs</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="/main/flights">Flights</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <label class="alignright">${{ user.airline.budget }}</label>
             <br><br>
         </div>
@@ -52,12 +52,6 @@
                     <label>Seem your airline doesn't have any aircraft yet</label>
                     <br>
                     <a href="aircraftmarket">buy one here</a>
-                </center>
-            {% elif user.airline.flight_set.all.count == 0 %}
-                <center>
-                    <label>Seem your airline doesn't have any flights yet</label>
-                    <br>
-                    <a href="flights">create one here</a>
                 </center>
             {% endif %}
         {% endblock %}

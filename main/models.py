@@ -6,6 +6,8 @@ class Plane(models.Model):
     type = models.CharField(max_length=20)
     airline_id = models.ForeignKey('registration.Airline', on_delete=models.CASCADE)
     seats = models.IntegerField()
+    range = models.IntegerField()
+    registration = models.CharField(max_length=6)
 
 class Airport(models.Model):
     airport_id = models.AutoField(primary_key=True)
@@ -25,7 +27,6 @@ class Hub(models.Model):
 
 class Flight(models.Model):
     flight_id = models.AutoField(primary_key=True)
-    airline_id = models.ForeignKey('registration.Airline', on_delete=models.CASCADE)
-    plane_id = models.ForeignKey(Plane, on_delete=models.CASCADE)
-    departure_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="departure")
-    arrival_airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name="arrival")
+    plane_id = models.OneToOneField(Plane, verbose_name='Aircraft', on_delete=models.CASCADE)
+    departure_airport = models.ForeignKey(Airport, verbose_name='Departure airport', on_delete=models.CASCADE, related_name="departure")
+    arrival_airport = models.ForeignKey(Airport, verbose_name='Arrival airport', on_delete=models.CASCADE, related_name="arrival")
