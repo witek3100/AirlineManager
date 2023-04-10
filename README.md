@@ -8,7 +8,7 @@ Currently in development...
 - Django 
 - PostgreSQL
 - Bootstrap
-- AWS
+- Heroku
 
 # Some screenshots
 ![Alt text](https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssfleet.png "Optional Title")
