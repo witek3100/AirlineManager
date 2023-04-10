@@ -7,7 +7,10 @@ class Plane(models.Model):
     airline_id = models.ForeignKey('registration.Airline', on_delete=models.CASCADE)
     seats = models.IntegerField()
     range = models.IntegerField()
-    registration = models.CharField(max_length=6)
+    registration = models.CharField(max_length=6, unique=True)
+
+    def __str__(self):
+        return f'{self.registration} {self.type}'
 
 class Airport(models.Model):
     airport_id = models.AutoField(primary_key=True)
@@ -17,8 +20,10 @@ class Airport(models.Model):
     longtitude = models.IntegerField()
     latitude = models.IntegerField()
 
-    def __repr__(self):
-        return f'{self.city} {self.code} {self.popularity}'
+    def __str__(self):
+        return f'{self.city} {self.code}        popularity: {self.popularity}%'
+
+
 
 class Hub(models.Model):
     hub_id = models.AutoField(primary_key=True)

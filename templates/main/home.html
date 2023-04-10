@@ -1,5 +1,6 @@
 {% extends 'registration/base.html' %}
 {% block content %}
+    {% load main_tags %}
     <style>
     div.userinfo {
         text-align: right;
@@ -16,6 +17,30 @@
     th {
         background-color: navy;
         color: white;
+    }
+    .left_side {
+        margin-left: 15%;
+        float: left;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 25px;
+    }
+    .right_side {
+        margin-right: 15%;
+        float: right;
+        background-color: rgba(255, 255, 255, 0.4);
+        border-radius: 25px;
+    }
+    .stats2{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+    .topstats{
+        margin-left: 10px;
+        margin-right: 3px;
+    }
+    .smalllabel{
+        font-size: 10px;
+        margin-right: 10px;
     }
     </style>
     {% if user.is_authenticated %}
@@ -53,7 +78,37 @@
                     <br>
                     <a href="aircraftmarket">buy one here</a>
                 </center>
+            {% else %}
+                <center>
+                <br>
+                map
+                </center>
             {% endif %}
+            <br><br><br>
+            <div class="stats">
+                <div class="left_side">
+                    <div class="upperbar"><label class="stats2">{{ user.airline.name }} stats</label></div>
+                    <center>
+                        <label>Passengers carried - {{ user.airline.carried_passengers }}</label><br>
+                        <label>Active flights - {{ flights.count }}</label><br>
+                        <label>Total completed flights - {{ user.airline.completed_flights }}</label><br>
+                        <label>Fleet size - {{ user.airline.plane_set.count }}</label><br>
+                        <label>Hubs - {{ user.airline.hub_set.count }}</label>
+                    </center>
+                </div>
+                <div class="right_side">
+                    <div class="upperbar"><label class="topstats">Top airlines</label>
+                        <label class="smalllabel">(most passengers)</label></div>
+                    <center>
+                        <label>Ryanair - 3980200</label><br>
+                        <label>Lufthansa - 3100500</label><br>
+                        <label>LOT - 2780050</label><br>
+                        <label>Norwegian - 2350000</label><br>
+                        <label>United - 1950000</label><br>
+                    </center>
+                </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
         {% endblock %}
     {% endif %}
 {% endblock %}

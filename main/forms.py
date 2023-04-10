@@ -15,3 +15,8 @@ class CreateFlightForm(forms.ModelForm):
     class Meta:
         model = Flight
         fields = ['plane_id', 'departure_airport', 'arrival_airport']
+
+class CreateFlightForAircraftForm(forms.ModelForm):
+    class Meta:
+        model = Flight
+        fields = ['departure_airport', 'arrival_airport']

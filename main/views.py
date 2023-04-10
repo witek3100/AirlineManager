@@ -1,11 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from main.forms import CreateHubForm, BuyAircraftForm, CreateFlightForm
+from main.forms import CreateHubForm, BuyAircraftForm, CreateFlightForm, CreateFlightForAircraftForm
 from django.shortcuts import render, redirect
 from main.models import Flight
 
 @login_required
-def home_page(response):
-    return render(response, 'main/home.html')
+def home_page(request):
+    flights = Flight.objects.filter(plane_id__airline_id__user=request.user)
+    return render(request, 'main/home.html', {'flights' : flights})
 
 @login_required
 def hubs_page(request):
@@ -77,3 +78,15 @@ def create_flight(request):
     else:
         create_flight_form = CreateFlightForm(request.POST)
     return render(request, 'main/create_flight.html', {'form':create_flight_form})
+
+@login_required
+def create_flight_for_aircraft(request, aircraftid):
+    aircraft = request.user.airline.plane_set.get(plane_id=aircraftid)
+    if request.method == "POST":
+        create_flight_form = CreateFlightForAircraftForm(request.POST)
+        if create_flight_form.is_valid():
+            create_flight_form.save()
+            return redirect("main/fleet")
+    else:
+        create_flight_form = CreateFlightForAircraftForm()
+    return render(request, 'main/create_flight_for_aircraft.html', {'form':create_flight_form, 'aircraft':aircraft})
