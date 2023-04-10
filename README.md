@@ -9,5 +9,6 @@ Project has features such as email verification, password changing and even more
 - AWS
 
 # Some screenshots
+![Alt text](https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssfleet.png "Optional Title")
 ![Alt text](https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/sshome.png "Optional Title")
-
+![Alt text](https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssaircraftmarket.png "Optional Title")
