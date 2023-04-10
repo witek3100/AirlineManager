@@ -9,5 +9,5 @@ Project has features such as email verification, password changing and even more
 - AWS
 
 # Some screenshots
-![Alt text](main/static/screenshots/Zrzut ekranu (79).png raw=true "Optional Title")
+![Alt text](main/static/screenshots/sshome.png raw=true "Optional Title")
 
