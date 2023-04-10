@@ -71,22 +71,22 @@ def flights(request):
 @login_required
 def create_flight(request):
     if request.method == "POST":
-        create_flight_form = CreateFlightForm(request.POST)
+        create_flight_form = CreateFlightForm(request.POST, user=request.user)
         if create_flight_form.is_valid():
             create_flight_form.save()
             return redirect("/main/flights")
     else:
-        create_flight_form = CreateFlightForm(request.POST)
+        create_flight_form = CreateFlightForm(user=request.user)
     return render(request, 'main/create_flight.html', {'form':create_flight_form})
 
 @login_required
 def create_flight_for_aircraft(request, aircraftid):
     aircraft = request.user.airline.plane_set.get(plane_id=aircraftid)
     if request.method == "POST":
-        create_flight_form = CreateFlightForAircraftForm(request.POST)
+        create_flight_form = CreateFlightForAircraftForm(request.POST, user=request.user)
         if create_flight_form.is_valid():
             create_flight_form.save()
             return redirect("main/fleet")
     else:
-        create_flight_form = CreateFlightForAircraftForm()
+        create_flight_form = CreateFlightForAircraftForm(user=request.user)
     return render(request, 'main/create_flight_for_aircraft.html', {'form':create_flight_form, 'aircraft':aircraft})

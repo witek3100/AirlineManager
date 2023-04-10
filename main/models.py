@@ -21,7 +21,7 @@ class Airport(models.Model):
     latitude = models.IntegerField()
 
     def __str__(self):
-        return f'{self.city} {self.code}        popularity: {self.popularity}%'
+        return f'{self.city} {self.code}'
 
 
 
