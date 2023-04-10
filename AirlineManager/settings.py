@@ -91,8 +91,12 @@ MESSAGE_TAGS = {
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dd6lrdv67dkhh',
+        'USER' : 'njjgbujlvrfhvc',
+        'PASSWORD' : 'c8fe8240f6c7bc4553311d4e0fe6eebd693795e3ac772e025bc2bb80e4ea5866',
+        'HOST' : 'ec2-54-73-22-169.eu-west-1.compute.amazonaws.com',
+        'PORT' : 5432,
     }
 }
 
