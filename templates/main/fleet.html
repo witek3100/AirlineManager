@@ -19,6 +19,7 @@
                             <label><th scope="col">Model</th>
                             <th scope="col">Registration</th></label>
                             <th scope="col">Flight</th>
+                            <th scope="col">Sell</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -27,9 +28,11 @@
                               <td><label>{{ plane.type }}</label></td>
                               <td><label>{{ plane.registration }}</label></td>
                               {% if plane.flight %}
-                                    <td><label>{{ plane.flight.departure_airport.code }} - {{ plane.flight.arrival_airport.code }}</label></td>
+                                    <td><label>{{ plane.flight.departure_airport.city }} {{ plane.flight.departure_airport.code }} -> {{ plane.flight.arrival_airport.city }} {{ plane.flight.arrival_airport.code }}</label></td>
+                                    <td><label>Cannot sell aircraft with active flight</label></td>
                               {% else %}
                                     <td><a href="createflight/{{ plane.plane_id }}" class="btn btn-success">Create flight for aircraft</a></td>
+                                    <td><a href="sellaircraft/{{ plane.plane_id }}" class="btn btn-danger">Sell</a></td>
                               {% endif %}
                           </tr>
                       {% endfor %}
@@ -38,7 +41,7 @@
                     <br><br>
                 </ul>
                 <a href="aircraftmarket" class="btn btn-primary">Aircraft market</a><br><br>
-                <br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </center>
         {% endif %}
     </center>

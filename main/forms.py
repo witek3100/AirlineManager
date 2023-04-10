@@ -18,8 +18,8 @@ class CreateFlightForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(CreateFlightForm, self).__init__(*args, **kwargs)
-        self.fields['plane_id'].choices = [(i, plane) for i, plane in enumerate(self.user.airline.plane_set.all()) if not hasattr(plane, 'flight')]
-        self.fields['departure_airport'].choices = [(i, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all())]
+        self.fields['plane_id'].choices = [(plane.pk, plane) for i, plane in enumerate(self.user.airline.plane_set.all()) if not hasattr(plane, 'flight')]
+        self.fields['departure_airport'].choices = [(hub.airport_id.pk, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all())]
 class CreateFlightForAircraftForm(forms.ModelForm):
     class Meta:
         model = Flight
@@ -28,5 +28,9 @@ class CreateFlightForAircraftForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(CreateFlightForAircraftForm, self).__init__(*args, **kwargs)
-        print([(i, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all())])
-        self.fields['departure_airport'].choices = ((i, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all()))
+        self.fields['departure_airport'].choices = ((hub.airport_id.pk, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all()))
+
+class DeleteFlightForm(forms.ModelForm):
+    class Meta:
+        model = Flight
+        fields = []

@@ -26,7 +26,7 @@
                               <td><label>{{ flight.departure_airport.city }} {{ flight.departure_airport.code }}</label></td>
                               <td><label>{{ flight.arrival_airport.city }} {{ flight.arrival_airport.code }}</label></td>
                               <td><label>{{ flight.plane_id.type }} {{ flight.plane_id.registration }}</label></td>
-                              <td><label><a href="" class="btn btn-danger">Delete</a></label></td>
+                              <td><label><a href="/main/flights/{{ flight.flight_id }}/delete" class="btn btn-danger">Delete</a></label></td>
                           </tr>
                       {% endfor %}
                       </tbody>
@@ -34,7 +34,7 @@
                     <br><br>
                 </ul>
                 <a href="createflight" class="btn btn-primary">Create new flight</a><br><br>
-                <br><br><br><br><br><br><br><br><br><br><br><br>
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </center>
         {% endif %}
     </center>

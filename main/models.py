@@ -7,7 +7,7 @@ class Plane(models.Model):
     airline_id = models.ForeignKey('registration.Airline', on_delete=models.CASCADE)
     seats = models.IntegerField()
     range = models.IntegerField()
-    registration = models.CharField(max_length=6, unique=True)
+    registration = models.CharField(max_length=6)
 
     def __str__(self):
         return f'{self.registration} {self.type}'

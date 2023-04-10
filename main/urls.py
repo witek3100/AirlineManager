@@ -10,5 +10,6 @@ urlpatterns = [
     path('fleet', views.fleet, name="fleet"),
     path('flights', views.flights, name="flights"),
     path('createflight', views.create_flight, name="createflight"),
-    path('createflight/<int:aircraftid>', views.create_flight_for_aircraft, name="createflightforaircraft")
+    path('createflight/<int:aircraftid>', views.create_flight_for_aircraft, name="createflightforaircraft"),
+    path('flights/<int:flightid>/delete', views.delete_flight, name="deleteflight")
 ]

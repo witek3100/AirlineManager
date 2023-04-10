@@ -20,7 +20,6 @@ def signup(request):
             verify_email(request, user, form_user.cleaned_data.get('email'))
             airline = form_airline.save(commit=False)
             airline.user = user
-            airline.budget = 3000000
             airline.save()
             return redirect("/accountcreated")
     else:
