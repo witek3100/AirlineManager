@@ -1,5 +1,5 @@
 from django import forms
-from main.models import Hub, Plane, Flight
+from main.models import Hub, Plane, Flight, Airport
 
 class CreateHubForm(forms.ModelForm):
     class Meta:
@@ -28,4 +28,5 @@ class CreateFlightForAircraftForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(CreateFlightForAircraftForm, self).__init__(*args, **kwargs)
-        self.fields['departure_airport'].choices = [(i, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all())]
+        print([(i, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all())])
+        self.fields['departure_airport'].choices = ((i, hub.airport_id) for i, hub in enumerate(self.user.airline.hub_set.all()))
