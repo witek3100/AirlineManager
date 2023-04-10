@@ -11,8 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import django_heroku
 from django.contrib.messages import constants as messages
 from pathlib import Path
+
+django_heroku.settings(locals())
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,6 +31,8 @@ SECRET_KEY = 'django-insecure-&7$6f7%_o)wr)66#bhyt6q&+1btrmf3)osk8oxqnu$6)0o8!!+
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Application definition

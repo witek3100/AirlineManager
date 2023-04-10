@@ -133,7 +133,7 @@ def sell_aircraft(request, aircraftid):
 @login_required
 def start_flight(request, flightid):
     flight = Flight.objects.get(flight_id=flightid)
-    flight_time_minutes = mt.distance(flight) / 15
+    flight_time_minutes = (mt.distance(flight) / 15) + 40
     flight.arrival_time = timezone.now() + timedelta(minutes=flight_time_minutes)
     flight.plane_id.airline_id.budget += mt.income(flight)
     flight.plane_id.airline_id.carried_passengers += int(flight.plane_id.seats * 0.01*flight.arrival_airport.popularity)
