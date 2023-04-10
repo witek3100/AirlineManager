@@ -17,8 +17,8 @@ class Airport(models.Model):
     city = models.CharField(max_length=20)
     code = models.CharField(max_length=4)
     popularity = models.IntegerField()
-    longtitude = models.IntegerField()
-    latitude = models.IntegerField()
+    longtitude = models.IntegerField(default=0)
+    latitude = models.IntegerField(default=0)
 
     def __str__(self):
         return f'{self.city} {self.code}'
@@ -35,3 +35,4 @@ class Flight(models.Model):
     plane_id = models.OneToOneField(Plane, verbose_name='Aircraft', on_delete=models.CASCADE)
     departure_airport = models.ForeignKey(Airport, verbose_name='Departure airport', on_delete=models.CASCADE, related_name="departure")
     arrival_airport = models.ForeignKey(Airport, verbose_name='Arrival airport', on_delete=models.CASCADE, related_name="arrival")
+    arrival_time = models.DateTimeField(null=True)

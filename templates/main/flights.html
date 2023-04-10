@@ -1,4 +1,5 @@
 {% extends 'main/home.html' %}
+{% load main_tags %}
 
 {% block content2 %}
     <center>
@@ -14,10 +15,12 @@
                     <table class="table table-hover table-bordered">
                       <thead>
                         <tr>
-                            <label><th scope="col">departure</th>
-                            <th scope="col">arrival</th>
-                            <th scope="col">aircraft</th> </label>
-                            <th scope="col"></th>
+                            <label><th scope="col">Departure</th>
+                            <th scope="col">Arrival</th>
+                            <th scope="col">Aircraft</th>
+                            <th scope="col">Distance</th>
+                            <th scope="col">Income</th>
+                            <th scope="col">Flight status</th></label>
                         </tr>
                       </thead>
                       <tbody>
@@ -26,7 +29,14 @@
                               <td><label>{{ flight.departure_airport.city }} {{ flight.departure_airport.code }}</label></td>
                               <td><label>{{ flight.arrival_airport.city }} {{ flight.arrival_airport.code }}</label></td>
                               <td><label>{{ flight.plane_id.type }} {{ flight.plane_id.registration }}</label></td>
-                              <td><label><a href="/main/flights/{{ flight.flight_id }}/delete" class="btn btn-danger">Delete</a></label></td>
+                              <td><label>{{ flight|distance }}</label></td>
+                              <td><label>${{ flight|income }}</label></td>
+                              {% if flight.arrival_time %}
+                                  <td><label>landing:<br>{{ flight.arrival_time|gettime }}</label></td>
+                              {% else %}
+                              <td><nobr><a href="/main/flights/{{ flight.flight_id }}/delete" class="btn btn-danger">Delete</a>
+                                  <a href="/main/flights/{{ flight.flight_id }}/startflight" class="btn btn-success">Start flight</a></nobr></td>
+                              {% endif %}
                           </tr>
                       {% endfor %}
                       </tbody>

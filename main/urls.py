@@ -11,5 +11,7 @@ urlpatterns = [
     path('flights', views.flights, name="flights"),
     path('createflight', views.create_flight, name="createflight"),
     path('createflight/<int:aircraftid>', views.create_flight_for_aircraft, name="createflightforaircraft"),
-    path('flights/<int:flightid>/delete', views.delete_flight, name="deleteflight")
+    path('flights/<int:flightid>/delete', views.delete_flight, name="deleteflight"),
+    path('fleet/sellaircraft/<int:aircraftid>', views.sell_aircraft, name="sellaircraft" ),
+    path('flights/<int:flightid>/startflight', views.start_flight, name="startflight")
 ]

@@ -31,8 +31,8 @@
                                     <td><label>{{ plane.flight.departure_airport.city }} {{ plane.flight.departure_airport.code }} -> {{ plane.flight.arrival_airport.city }} {{ plane.flight.arrival_airport.code }}</label></td>
                                     <td><label>Cannot sell aircraft with active flight</label></td>
                               {% else %}
-                                    <td><a href="createflight/{{ plane.plane_id }}" class="btn btn-success">Create flight for aircraft</a></td>
-                                    <td><a href="sellaircraft/{{ plane.plane_id }}" class="btn btn-danger">Sell</a></td>
+                                    <td><center><a href="createflight/{{ plane.plane_id }}" class="btn btn-success">Create flight</a></center></td>
+                                    <td><center><a href="fleet/sellaircraft/{{ plane.plane_id }}" class="btn btn-danger">Sell</a></center></td>
                               {% endif %}
                           </tr>
                       {% endfor %}

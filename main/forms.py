@@ -34,3 +34,8 @@ class DeleteFlightForm(forms.ModelForm):
     class Meta:
         model = Flight
         fields = []
+
+class SellAircraftForm(forms.ModelForm):
+    class Meta:
+        model = Plane
+        fields = []

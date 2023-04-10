@@ -1,7 +1,28 @@
 from django.contrib.auth.decorators import login_required
-from main.forms import CreateHubForm, BuyAircraftForm, CreateFlightForm, CreateFlightForAircraftForm, DeleteFlightForm
+from main.forms import CreateHubForm, BuyAircraftForm, CreateFlightForm, CreateFlightForAircraftForm, DeleteFlightForm, SellAircraftForm
 from django.shortcuts import render, redirect
 from main.models import Flight, Plane
+from datetime import datetime, timedelta
+import main.templatetags.main_tags as mt
+from django.utils import timezone
+
+
+aircraft_models_dict = {
+        67378 :
+            ('Boeing 737-800', 170, 5800, 1100000),
+        98 :
+            ('Bombardier Dash-8', 70, 2000, 200000),
+        9700 :
+            ('Bombardier CRJ-700', 80, 3500, 300000),
+        43509 :
+            ('Airbus A350-900', 350, 17000, 30000000),
+        4318 :
+            ('Airbus A318', 130, 5000, 700000),
+        4320 :
+            ('Airbus A320neo', 190, 5500, 1200000),
+        67773 :
+            ('Boeing 777-300ER', 520, 17500, 40000000)
+    }
 
 @login_required
 def home_page(request):
@@ -33,31 +54,21 @@ def aircraft_market(request):
 
 @login_required
 def buy_aircraft(request, modelid):
-    models_dict = {
-        67378 :
-            ('Boeing 737-800', 170, 5800, 1100000),
-        98 :
-            ('Bombardier Dash-8', 70, 2000, 200000),
-        9700 :
-            ('Bombardier CRJ-700', 80, 3500, 300000),
-        43509 :
-            ('Airbus A350-900', 350, 17000, 30000000)
-    }
     if request.method =="POST":
         form_buy_aircraft = BuyAircraftForm(request.POST)
         if form_buy_aircraft.is_valid():
             aircraft = form_buy_aircraft.save(commit=False)
             aircraft.airline_id = request.user.airline
-            aircraft.type = models_dict[modelid][0]
-            aircraft.seats = models_dict[modelid][1]
-            aircraft.range = models_dict[modelid][2]
-            request.user.airline.budget -= models_dict[modelid][3]
+            aircraft.type = aircraft_models_dict[modelid][0]
+            aircraft.seats = aircraft_models_dict[modelid][1]
+            aircraft.range = aircraft_models_dict[modelid][2]
+            request.user.airline.budget -= aircraft_models_dict[modelid][3]
             aircraft.save()
             request.user.airline.save()
             return redirect("/main/fleet")
     else:
         form_buy_aircraft = BuyAircraftForm()
-    return render(request, "main/buy_aircraft.html", {'model' : models_dict[modelid][0], 'form' : form_buy_aircraft})
+    return render(request, "main/buy_aircraft.html", {'model' : aircraft_models_dict[modelid][0], 'form' : form_buy_aircraft})
 
 @login_required
 def fleet(request):
@@ -66,6 +77,10 @@ def fleet(request):
 @login_required
 def flights(request):
     flights = Flight.objects.filter(plane_id__airline_id__user=request.user)
+    for flight in flights:
+        if flight.arrival_time:
+            if flight.arrival_time < timezone.now():
+                flight.arrival_time = None
     return render(request, "main/flights.html", {'flights':flights})
 
 @login_required
@@ -102,4 +117,28 @@ def delete_flight(request, flightid):
             flight.delete()
             return redirect('/main/flights')
     return render(request, 'main/delete_flight.html', {'flight' : flight})
+
+@login_required
+def sell_aircraft(request, aircraftid):
+    aircraft = Plane.objects.get(plane_id=aircraftid)
+    if request.method == "POST":
+        sell_aircraft_form = SellAircraftForm(request.POST)
+        if sell_aircraft_form.is_valid():
+            aircraft.delete()
+            request.user.airline.budget += 100000
+            request.user.airline.save()
+            return redirect('/main/fleet')
+    return render(request, 'main/sell_aircraft.html', {'aircraft' : aircraft})
+
+@login_required
+def start_flight(request, flightid):
+    flight = Flight.objects.get(flight_id=flightid)
+    flight_time_minutes = mt.distance(flight) / 15
+    flight.arrival_time = timezone.now() + timedelta(minutes=flight_time_minutes)
+    flight.plane_id.airline_id.budget += mt.income(flight)
+    flight.plane_id.airline_id.carried_passengers += int(flight.plane_id.seats * 0.01*flight.arrival_airport.popularity)
+    flight.plane_id.airline_id.completed_flights += 1
+    flight.save()
+    flight.plane_id.airline_id.save()
+    return redirect('/main/flights')
 
