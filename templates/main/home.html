@@ -99,13 +99,11 @@
                 <div class="right_side">
                     <div class="upperbar"><label class="topstats">Top airlines</label>
                         <label class="smalllabel">(most passengers)</label></div>
+                    {% for airline in topairlines %}
                     <center>
-                        <label>Ryanair - 3980200</label><br>
-                        <label>Lufthansa - 3100500</label><br>
-                        <label>LOT - 2780050</label><br>
-                        <label>Norwegian - 2350000</label><br>
-                        <label>United - 1950000</label><br>
+                        <label>{{ airline.name }} - {{ airline.carried_passengers }}</label><br>
                     </center>
+                    {% endfor %}
                 </div>
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>

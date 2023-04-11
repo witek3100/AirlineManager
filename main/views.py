@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from main.forms import CreateHubForm, BuyAircraftForm, CreateFlightForm, CreateFlightForAircraftForm, DeleteFlightForm, SellAircraftForm
 from django.shortcuts import render, redirect
-from main.models import Flight, Plane
+from main.models import Flight, Plane, Airline
 from datetime import datetime, timedelta
 import main.templatetags.main_tags as mt
 from django.utils import timezone
@@ -26,8 +26,9 @@ aircraft_models_dict = {
 
 @login_required
 def home_page(request):
+    topairlines = Airline.objects.all().order_by('-carried_passengers')[:5]
     flights = Flight.objects.filter(plane_id__airline_id__user=request.user)
-    return render(request, 'main/home.html', {'flights' : flights})
+    return render(request, 'main/home.html', {'flights' : flights, 'topairlines' : topairlines})
 
 @login_required
 def hubs_page(request):
