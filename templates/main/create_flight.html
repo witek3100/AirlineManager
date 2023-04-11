@@ -11,6 +11,11 @@
             {{ form|crispy }}
             <button type="submit" class="btn btn-success">Create</button>
         </form>
+        {% if too_short_range_pop_up %}
+            <script>
+                window.alert('Aircraft range is too short for this flight, choose another aircraft')
+            </script>
+        {% endif %}
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </center>
 {% endblock %}

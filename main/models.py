@@ -23,8 +23,6 @@ class Airport(models.Model):
     def __str__(self):
         return f'{self.city} {self.code}'
 
-
-
 class Hub(models.Model):
     hub_id = models.AutoField(primary_key=True)
     airline_id = models.ForeignKey('registration.Airline', on_delete=models.CASCADE)

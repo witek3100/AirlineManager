@@ -39,11 +39,14 @@ def create_hub(request):
         form_hub = CreateHubForm(request.POST)
         if form_hub.is_valid():
             hub = form_hub.save(commit=False)
-            hub.airline_id = request.user.airline
-            hub.save()
-            request.user.airline.budget -= request.user.airline.hub_set.count() * 500000
-            request.user.airline.save()
-            return redirect("/main/hubs")
+            if request.user.airline.budget < request.user.airline.hub_set.count() * 500000:
+                return render(request, "main/create_hub.html", {"formhub": form_hub, 'not_enough_money_popup' : 1})
+            else:
+                request.user.airline.budget -= request.user.airline.hub_set.count() * 500000
+                request.user.airline.save()
+                hub.airline_id = request.user.airline
+                hub.save()
+                return redirect("/main/hubs")
     else:
         form_hub = CreateHubForm()
     return render(request, "main/create_hub.html", {"formhub" : form_hub})
@@ -62,10 +65,13 @@ def buy_aircraft(request, modelid):
             aircraft.type = aircraft_models_dict[modelid][0]
             aircraft.seats = aircraft_models_dict[modelid][1]
             aircraft.range = aircraft_models_dict[modelid][2]
-            request.user.airline.budget -= aircraft_models_dict[modelid][3]
-            aircraft.save()
-            request.user.airline.save()
-            return redirect("/main/fleet")
+            if request.user.airline.budget < aircraft_models_dict[modelid][3]:
+                return render(request, "main/buy_aircraft.html", {'model' : aircraft_models_dict[modelid][0], 'form' : form_buy_aircraft, 'not_enough_money_popup' : 1})
+            else:
+                request.user.airline.budget -= aircraft_models_dict[modelid][3]
+                aircraft.save()
+                request.user.airline.save()
+                return redirect("/main/fleet")
     else:
         form_buy_aircraft = BuyAircraftForm()
     return render(request, "main/buy_aircraft.html", {'model' : aircraft_models_dict[modelid][0], 'form' : form_buy_aircraft})
@@ -88,6 +94,9 @@ def create_flight(request):
     if request.method == "POST":
         create_flight_form = CreateFlightForm(request.POST, user=request.user)
         if create_flight_form.is_valid():
+            flight = create_flight_form.save(commit=False)
+            if mt.distance(flight) > flight.plane_id.range:
+                return render(request, 'main/create_flight.html', {'form': create_flight_form, 'too_short_range_pop_up' : 1})
             create_flight_form.save()
             return redirect("/main/flights")
     else:
@@ -102,6 +111,8 @@ def create_flight_for_aircraft(request, aircraftid):
         if create_flight_form.is_valid():
             flight = create_flight_form.save(commit=False)
             flight.plane_id = Plane.objects.get(plane_id=aircraftid)
+            if mt.distance(flight) > flight.plane_id.range:
+                return render(request, 'main/create_flight_for_aircraft.html', {'form': create_flight_form, 'aircraft': aircraft, 'too_short_range_pop_up' : 1})
             create_flight_form.save()
             return redirect("/main/fleet")
     else:

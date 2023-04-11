@@ -12,6 +12,12 @@
             {{ form | crispy }}
             <button type="submit" class="btn btn-success">Confirm and buy</button>
         </form>
+        <br><a href="../aircraftmarket" class="btn btn-danger">Return</a>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        {% if not_enough_money_popup %}
+            <script>
+                window.alert("You don't have enough money for this transaction")
+            </script>
+        {% endif %}
     </center>
 {% endblock %}

@@ -16,7 +16,7 @@ def distance(flight):
 
 @register.filter(name='income')
 def income(flight):
-    return int(flight.plane_id.seats * distance(flight) * flight.arrival_airport.popularity * 0.0005)
+    return int(flight.plane_id.seats * distance(flight) * flight.arrival_airport.popularity * 0.0005) + 10000
 
 @register.filter(name='gettime')
 def gettime(time):

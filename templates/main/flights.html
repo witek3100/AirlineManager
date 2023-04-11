@@ -32,7 +32,7 @@
                               <td><label>{{ flight|distance }}</label></td>
                               <td><label>${{ flight|income }}</label></td>
                               {% if flight.arrival_time %}
-                                  <td><label>landing:<br>{{ flight.arrival_time|gettime }}</label></td>
+                                  <td><label>In flight</br>landing:<br>{{ flight.arrival_time|gettime }}</label></td>
                               {% else %}
                               <td><nobr><a href="/main/flights/{{ flight.flight_id }}/delete" class="btn btn-danger">Delete</a>
                                   <a href="/main/flights/{{ flight.flight_id }}/startflight" class="btn btn-success">Start flight</a></nobr></td>
