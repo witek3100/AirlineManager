@@ -13,6 +13,4 @@ Currently in development...
 - Heroku
 
 # Some screenshots
-![Alt text](https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssfleet.png "Optional Title")
-![Alt text](https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/sshome.png "Optional Title")
-![Alt text](https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssaircraftmarket.png "Optional Title")
+
