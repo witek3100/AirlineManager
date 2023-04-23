@@ -4,8 +4,6 @@ Project has features such as email verification, password changing and even more
 
 -> [Play here](https://airlinemanager.herokuapp.com/) <-
 
-Currently in development...
-
 # Used technologies
 - Django 
 - PostgreSQL
