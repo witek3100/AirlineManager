@@ -10,8 +10,4 @@ Project has features such as email verification, password changing and even more
 - Bootstrap
 - Heroku
 
-# Some screenshots
-<nobr><img src="https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssfleet.png"  width="400" height="200">
-<img src="https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssflights.png"  width="400" height="200"></nobr>
-<nobr><img src="https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/ssaircraftmarket.png"  width="400" height="200">
-<img src="https://github.com/witek3100/AirlineManager/blob/master/main/static/screenshots/sshome.png"  width="400" height="200"></nobr>
+
